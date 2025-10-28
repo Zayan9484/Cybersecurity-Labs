@@ -64,3 +64,5 @@ We can see both of our agents are active.
 PS: I have switched to another network so the IP of the server is changed.
 
 
+# Open pdf file to see each step with screenshots
+

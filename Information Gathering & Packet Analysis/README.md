@@ -96,4 +96,4 @@ We will be capturing packets from the Login page of Vulnerable web.
  
 •	Scroll down until you see credentials.
  
-# For detailed steps with screenshots, open this [pdf](https://github.com/Zayan9484/Cybersecurity-Labs/blob/main/Information%20Gathering%20%26%20Packet%20Analysis/Information%20Gathering%20%26%20Packet%20Analysis.pdf)
+# Open this [pdf](https://github.com/Zayan9484/Cybersecurity-Labs/blob/main/Information%20Gathering%20%26%20Packet%20Analysis/Information%20Gathering%20%26%20Packet%20Analysis.pdf) for detailed notes with screenshots

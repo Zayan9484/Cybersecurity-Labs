@@ -96,4 +96,4 @@ We will be capturing packets from the Login page of Vulnerable web.
  
 •	Scroll down until you see credentials.
  
-
+# Open the pdf file for complete notes including screenshot of each step

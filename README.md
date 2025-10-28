@@ -1,3 +1,4 @@
 # Cybersecurity-Labs
-In this, I've performed multiple cybersecurity lab projects.
-I've explained and documented everything
+This repository contains beginner friendly cybersecurity projects
+
+I have explained and documented everything

@@ -93,5 +93,5 @@ We can also these logs in our Ubuntu machine by using the
 
     tail -f eve.json command
 
-For detailed steps with screenshot, open this [pdf]()
+For detailed steps with screenshot, open this [pdf](https://github.com/Zayan9484/Cybersecurity-Labs/blob/main/Intrusion%20Detection%20in%20Wazuh/Suricata%20IDS%20on%20Ubuntu.pdf)
 

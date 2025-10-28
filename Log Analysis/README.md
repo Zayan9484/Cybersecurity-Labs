@@ -115,7 +115,7 @@ You have to remember Sysmon Event ids. It’s very important in terms of intervi
 - Run cmd as an administrator
 - Follow the guide given on GitHub (from where you download config file)
 
-# Open this [pdf]() for detailed notes with screenshots of steps
-
 If you open Event Viewer, under Application and Services Logs > Windows, you can find Sysmon logs because Sysmon itself is an application and process.
+
+# Open this [pdf](https://github.com/Zayan9484/Cybersecurity-Labs/blob/main/Log%20Analysis/Log%20Analysis.pdf) for detailed notes with screenshots of steps
 

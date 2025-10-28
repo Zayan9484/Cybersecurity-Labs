@@ -64,5 +64,5 @@ We can see both of our agents are active.
 PS: I have switched to another network so the IP of the server is changed.
 
 
-# Open pdf file to see each step with screenshots
+# For detailed steps with screenshots, open this [pdf](https://github.com/Zayan9484/Cybersecurity-Labs/blob/main/Wazuh%20SIEM%20Installation/Installing%20Wazuh%20in%20Virtual%20Machine.pdf)
 

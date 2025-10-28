@@ -74,7 +74,7 @@ If it exists → add this line inside.
 You can see the events which happened to the file.
 
 
-# For detailed steps with screenshots open this [pdf](https://github.com/Zayan9484/Cybersecurity-Labs/blob/main/File%20Integrity%20Monitoring%20-%20Wazuh/File%20Integrity%20Monitoring.pdf)
+# Open this [pdf](https://github.com/Zayan9484/Cybersecurity-Labs/blob/main/File%20Integrity%20Monitoring%20-%20Wazuh/File%20Integrity%20Monitoring.pdf) for detailed notes with screenshots
  
  
  

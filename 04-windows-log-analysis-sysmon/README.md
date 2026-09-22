@@ -14,6 +14,10 @@ Open Windows Event Viewer from Run or Command Prompt:
 eventvwr
 ```
 
+
+
+![Windows Event Viewer overview](./screenshots/01-event-viewer-overview.png)
+
 Windows event files can be exported as:
 
 ```text
@@ -40,11 +44,29 @@ Windows Security Event ID:
 4624 - Successful logon
 ```
 
+
+
+![Security Event 4624 successful-logon details](./screenshots/03-event-4624-details.png)
+
+The XML view exposes the event fields for inspection.
+
+
+![XML view of the successful-logon event](./screenshots/04-event-xml-view.png)
+
+## Custom Views
+
 The lab also covered using Event IDs to create Custom Views so that specific event types can be filtered instead of reading the entire log stream.
+
+
+
+![Custom View configured for the Security log](./screenshots/06-custom-view-configuration.png)
+
+
+![Custom View saved as Logon Logoff Events](./screenshots/07-custom-view-save.png)
 
 ## Sysmon
 
-Sysmon was added to improve visibility into activity that default Windows logs may not capture in enough detail.
+The notes introduce Sysmon as a source of additional endpoint telemetry. The included Sysmon image is an Event ID reference table; it does not demonstrate an installation or a captured Sysmon event.
 
 The concepts reviewed included:
 
@@ -58,9 +80,12 @@ This became useful later in my [SOC Detection Engineering project](https://githu
 
 ## Evidence & Documentation
 
+- [All screenshots](./screenshots/README.md)
+
 - [Log-analysis notes](./docs/log-analysis-notes.md)
 - [Original lab notes with screenshots](./docs/original-lab-notes.pdf)
 
 ## Status
 
 **Completed as a foundational lab** - Windows logging concepts and Sysmon telemetry were studied and practiced in the lab environment.
+

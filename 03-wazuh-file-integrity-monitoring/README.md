@@ -27,6 +27,10 @@ Add the monitored directory inside the `<syscheck>` block:
 <directories realtime="yes" report_changes="yes">/opt/fim-demo</directories>
 ```
 
+
+
+![Ubuntu syscheck configuration monitoring /opt/fim-demo](./screenshots/02-ubuntu-fim-directory-config.png)
+
 Restart the agent:
 
 ```bash
@@ -40,6 +44,13 @@ echo "changed $(date)" | sudo tee -a /opt/fim-demo/watchme.txt
 ```
 
 The resulting event was then reviewed under Wazuh File Integrity Monitoring.
+
+
+
+![Ubuntu file modification detected in Wazuh](./screenshots/03-ubuntu-fim-event.png)
+
+
+![Ubuntu integrity-change event details](./screenshots/04-ubuntu-fim-event-details.png)
 
 ## Windows Implementation
 
@@ -55,6 +66,10 @@ The Wazuh agent configuration included:
 <directories realtime="yes" report_changes="yes">C:\fim-demo</directories>
 ```
 
+
+
+![Windows syscheck configuration monitoring C:\fim-demo](./screenshots/05-windows-fim-directory-config.png)
+
 Restart the Wazuh service from an elevated PowerShell session:
 
 ```powershell
@@ -62,6 +77,13 @@ Restart-Service -Name WazuhSvc
 ```
 
 After modifying the test file, I verified the resulting event in the Wazuh dashboard.
+
+
+
+![Windows file modification detected in Wazuh](./screenshots/07-windows-fim-event.png)
+
+
+![Windows integrity-change event details](./screenshots/08-windows-fim-event-details.png)
 
 ## What I Validated
 
@@ -73,6 +95,8 @@ After modifying the test file, I verified the resulting event in the Wazuh dashb
 
 ## Evidence & Documentation
 
+- [All screenshots](./screenshots/README.md)
+
 - [Configuration notes](./docs/configuration.md)
 - [Validation notes](./docs/validation.md)
 - [Original lab notes with screenshots](./docs/original-lab-notes.pdf)
@@ -80,3 +104,4 @@ After modifying the test file, I verified the resulting event in the Wazuh dashb
 ## Status
 
 **Completed** - file changes on both Windows and Ubuntu were detected in the lab.
+

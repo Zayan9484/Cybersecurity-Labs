@@ -4,17 +4,7 @@
 
 This lab focused on deploying Suricata on an Ubuntu endpoint, forwarding Suricata alert data into Wazuh, and generating controlled network activity to verify that alerts were visible in the SIEM.
 
-## What I Implemented
-
-- Installed Suricata on Ubuntu.
-- Added the Emerging Threats ruleset used in the lab.
-- Configured `HOME_NET`, the active capture interface, and the Suricata rule path.
-- Configured Wazuh to read Suricata's `eve.json` output.
-- Restarted the relevant services after configuration changes.
-- Generated an Nmap scan from the lab environment.
-- Verified Suricata/Wazuh events containing source, rule, port, and log-location details.
-
-## Data Flow
+## Detection Flow
 
 ```text
 Controlled Nmap Scan
@@ -31,25 +21,92 @@ Wazuh Agent
 Wazuh Dashboard / Threat Hunting
 ```
 
-## Concepts Practiced
+## Key Commands Used
 
-- Network IDS deployment
-- Rule-based network detection
-- JSON security telemetry
-- SIEM log ingestion
-- Alert validation
-- Basic network-event investigation
+Install Suricata:
 
-## Evidence
+```bash
+sudo add-apt-repository ppa:oisf/suricata-stable
+sudo apt-get update
+sudo apt-get install suricata -y
+```
+
+Download the Emerging Threats ruleset used in the original lab:
+
+```bash
+cd /tmp/
+curl -LO https://rules.emergingthreats.net/open/suricata-6.0.8/emerging.rules.tar.gz
+sudo tar -xvzf emerging.rules.tar.gz
+sudo mv rules/*.rules /etc/suricata/rules/
+sudo chmod 640 /etc/suricata/rules/*.rules
+```
+
+Restart Suricata after configuration changes:
+
+```bash
+sudo systemctl restart suricata
+```
+
+Watch Suricata events in real time:
+
+```bash
+tail -f /var/log/suricata/eve.json
+```
+
+Generate controlled scan activity from the lab attacker machine:
+
+```bash
+nmap <ubuntu-target-ip>
+```
+
+## Wazuh Log Ingestion
+
+Wazuh was configured to read Suricata's structured `eve.json` output:
+
+```xml
+<localfile>
+  <log_format>json</log_format>
+  <location>/var/log/suricata/eve.json</location>
+</localfile>
+```
+
+## Suricata Configuration Areas
+
+The lab configuration included:
+
+```yaml
+HOME_NET: "[<ubuntu-ip>]"
+EXTERNAL_NET: "any"
+
+default-rule-path: /etc/suricata/rules
+
+rule-files:
+  - "*.rules"
+```
+
+The active AF_PACKET interface was also configured for the Ubuntu endpoint.
+
+## Validation
+
+After the scan was generated, I reviewed Suricata/Wazuh events for details such as:
+
+- source IP;
+- destination/target information;
+- Suricata rule ID;
+- rule group;
+- scanned ports; and
+- log source.
+
+## Evidence & Documentation
 
 - [Implementation notes](./docs/implementation.md)
 - [Validation notes](./docs/validation.md)
-- [Original lab notes](./docs/original-lab-notes.pdf)
+- [Original lab notes with screenshots](./docs/original-lab-notes.pdf)
 
 ## Historical Note
 
-The original lab used the Suricata/rules versions current at the time. Current deployments should use supported packages and current rules rather than copying old version numbers blindly.
+The ruleset/version above reflects the original lab. A current deployment should use supported Suricata packages and current rules rather than copying the old version number blindly.
 
 ## Status
 
-**Completed** — Suricata alerts were ingested and reviewed through Wazuh during controlled testing.
+**Completed** - Suricata alerts were ingested and reviewed through Wazuh during controlled testing.

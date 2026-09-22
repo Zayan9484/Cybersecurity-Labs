@@ -2,30 +2,65 @@
 
 ## Overview
 
-This lab focused on understanding Windows event logs and the extra telemetry provided by Sysmon.
+This lab focused on understanding Windows event logs and the additional endpoint telemetry provided by Sysmon.
 
-It is primarily a log-analysis and telemetry-learning lab rather than a full detection-engineering project.
+It is a foundational log-analysis lab rather than a complete detection-engineering project.
 
-## Topics Practiced
+## Key Commands
 
-- Windows Event Viewer navigation
-- Application, System, Security, Setup, and Forwarded Events
-- Windows Security Event IDs
-- Saving `.evtx` event files
-- Creating Custom Views
-- Understanding why PowerShell logging matters
-- Installing and locating Sysmon telemetry
-- Understanding how Sysmon adds process, file, and network visibility beyond default Windows logs
+Open Windows Event Viewer from Run or Command Prompt:
 
-## Why It Matters
+```text
+eventvwr
+```
 
-A SIEM is only as useful as the telemetry sent to it. This lab helped build the Windows logging foundation used later in my SOC Detection Engineering project.
+Windows event files can be exported as:
 
-## Evidence
+```text
+.evtx
+```
+
+## Windows Logs Reviewed
+
+| Log | What I used it to understand |
+|---|---|
+| Application | Application-generated events |
+| System | Windows services and OS-level events |
+| Security | Logons, authentication failures, account/security activity |
+| Setup | Installation/update events |
+| Forwarded Events | Events collected from other systems |
+| PowerShell | PowerShell-related telemetry |
+| Sysmon | Detailed process, file, and network telemetry |
+
+## Example Security Event
+
+Windows Security Event ID:
+
+```text
+4624 - Successful logon
+```
+
+The lab also covered using Event IDs to create Custom Views so that specific event types can be filtered instead of reading the entire log stream.
+
+## Sysmon
+
+Sysmon was added to improve visibility into activity that default Windows logs may not capture in enough detail.
+
+The concepts reviewed included:
+
+- process creation;
+- command-line arguments;
+- file activity;
+- network connections; and
+- using an XML configuration to control what Sysmon records.
+
+This became useful later in my [SOC Detection Engineering project](https://github.com/Zayan9484/SOC-Detection-Engineering), where Sysmon process telemetry was ingested into Wazuh and used for encoded PowerShell detection.
+
+## Evidence & Documentation
 
 - [Log-analysis notes](./docs/log-analysis-notes.md)
-- [Original lab notes](./docs/original-lab-notes.pdf)
+- [Original lab notes with screenshots](./docs/original-lab-notes.pdf)
 
 ## Status
 
-**Completed as a foundational lab** — Windows logging concepts and Sysmon telemetry were studied and practiced in the lab environment.
+**Completed as a foundational lab** - Windows logging concepts and Sysmon telemetry were studied and practiced in the lab environment.

@@ -6,34 +6,77 @@ This lab tested Wazuh File Integrity Monitoring (FIM) on both Ubuntu and Windows
 
 The goal was to define test directories, create or modify files inside them, and verify that Wazuh recorded the resulting file-integrity events.
 
-## What I Implemented
+## Ubuntu Implementation
 
-### Ubuntu
-- Created `/opt/fim-demo` and a test file.
-- Added the directory to the Wazuh agent's `syscheck` configuration with real-time monitoring and change reporting.
-- Restarted the Wazuh agent.
-- Modified the monitored file and reviewed the resulting FIM event.
+Create the test directory and file:
 
-### Windows
-- Created `C:\fim-demo\watchme.txt`.
-- Added the directory to the Windows Wazuh agent's FIM configuration.
-- Restarted the Wazuh service.
-- Modified the file and reviewed the event in the Wazuh dashboard.
+```bash
+sudo mkdir -p /opt/fim-demo
+echo "start" | sudo tee /opt/fim-demo/watchme.txt
+```
 
-## Concepts Practiced
+Open the Wazuh agent configuration:
 
-- File Integrity Monitoring
-- Wazuh `syscheck`
-- Real-time file monitoring
-- Windows and Linux endpoint configuration
-- Event validation
+```bash
+sudo nano /var/ossec/etc/ossec.conf
+```
 
-## Evidence
+Add the monitored directory inside the `<syscheck>` block:
+
+```xml
+<directories realtime="yes" report_changes="yes">/opt/fim-demo</directories>
+```
+
+Restart the agent:
+
+```bash
+sudo systemctl restart wazuh-agent
+```
+
+Generate a file change:
+
+```bash
+echo "changed $(date)" | sudo tee -a /opt/fim-demo/watchme.txt
+```
+
+The resulting event was then reviewed under Wazuh File Integrity Monitoring.
+
+## Windows Implementation
+
+The Windows test path was:
+
+```text
+C:\fim-demo\watchme.txt
+```
+
+The Wazuh agent configuration included:
+
+```xml
+<directories realtime="yes" report_changes="yes">C:\fim-demo</directories>
+```
+
+Restart the Wazuh service from an elevated PowerShell session:
+
+```powershell
+Restart-Service -Name WazuhSvc
+```
+
+After modifying the test file, I verified the resulting event in the Wazuh dashboard.
+
+## What I Validated
+
+- monitored file path;
+- file modification event;
+- event timestamp;
+- change details reported by Wazuh; and
+- FIM operation on both Linux and Windows endpoints.
+
+## Evidence & Documentation
 
 - [Configuration notes](./docs/configuration.md)
 - [Validation notes](./docs/validation.md)
-- [Original lab notes](./docs/original-lab-notes.pdf)
+- [Original lab notes with screenshots](./docs/original-lab-notes.pdf)
 
 ## Status
 
-**Completed** — file changes on both Windows and Ubuntu were detected in the lab.
+**Completed** - file changes on both Windows and Ubuntu were detected in the lab.

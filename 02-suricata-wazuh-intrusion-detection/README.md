@@ -56,8 +56,12 @@ tail -f /var/log/suricata/eve.json
 Generate controlled scan activity from the lab attacker machine:
 
 ```bash
-nmap <ubuntu-target-ip>
+nmap -sV <ubuntu-target-ip>
 ```
+
+
+
+![Service-version scan against the Ubuntu lab endpoint](./screenshots/07-nmap-scan.png)
 
 ## Wazuh Log Ingestion
 
@@ -70,13 +74,17 @@ Wazuh was configured to read Suricata's structured `eve.json` output:
 </localfile>
 ```
 
+
+
+![Wazuh agent configured to collect Suricata eve.json](./screenshots/06-wazuh-eve-json-ingestion.png)
+
 ## Suricata Configuration Areas
 
 The lab configuration included:
 
 ```yaml
 HOME_NET: "[<ubuntu-ip>]"
-EXTERNAL_NET: "any"
+EXTERNAL_NET: "!$HOME_NET"
 
 default-rule-path: /etc/suricata/rules
 
@@ -84,7 +92,13 @@ rule-files:
   - "*.rules"
 ```
 
-The active AF_PACKET interface was also configured for the Ubuntu endpoint.
+The active AF_PACKET interface was configured as `ens33` on the Ubuntu endpoint. The snippets above are excerpts, not a complete configuration file.
+
+![HOME_NET set to the lab endpoint and EXTERNAL_NET excluding HOME_NET](./screenshots/03-home-net-configuration.png)
+
+
+![AF_PACKET capture on ens33](./screenshots/05-af-packet-interface.png)
+
 
 ## Validation
 
@@ -97,7 +111,18 @@ After the scan was generated, I reviewed Suricata/Wazuh events for details such 
 - scanned ports; and
 - log source.
 
+
+
+![Suricata alerts displayed in Wazuh Threat Hunting](./screenshots/08-wazuh-suricata-alerts.png)
+
+
+![Alert details showing eve.json as the source and Wazuh rule 86601](./screenshots/09-suricata-alert-details.png)
+
+The detailed event identifies Wazuh rule `86601`; this is not the underlying Suricata signature ID. These screenshots show scan-related alerts, not a confirmed compromise.
+
 ## Evidence & Documentation
+
+- [All screenshots](./screenshots/README.md)
 
 - [Implementation notes](./docs/implementation.md)
 - [Validation notes](./docs/validation.md)
@@ -110,3 +135,4 @@ The ruleset/version above reflects the original lab. A current deployment should
 ## Status
 
 **Completed** - Suricata alerts were ingested and reviewed through Wazuh during controlled testing.
+
